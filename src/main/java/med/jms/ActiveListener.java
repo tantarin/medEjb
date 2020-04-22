@@ -6,6 +6,7 @@ import lombok.SneakyThrows;
 
 import med.dto.EventDto;
 import med.dto.EventDtoList;
+import med.poll.CounterView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.ejb.ActivationConfigProperty;
@@ -31,8 +32,6 @@ public class ActiveListener implements MessageListener {
     private static final Logger LOGGER =
             LoggerFactory.getLogger(ActiveListener.class);
 
-//    private Events events = new Events();
-
     @SneakyThrows
     @Override
     public void onMessage(Message message) {
@@ -41,6 +40,6 @@ public class ActiveListener implements MessageListener {
         LOGGER.info("inbound json='{}'", payload);
         Type listType = new TypeToken<ArrayList<EventDto>>(){}.getType();
         List<EventDto> eventDtoList = new Gson().fromJson(payload, listType);
-     //   events.setEventList(eventDtoList);
+        CounterView.eventDtoList = eventDtoList;
     }
 }

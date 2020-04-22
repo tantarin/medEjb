@@ -5,23 +5,47 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <title>JSF 2.3: Websocket Sample</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 </h:head>
 <h:body>
-    <h1>JSF 2.3: Hello Websocket </h1>
-    <hr />
-    <h:form>
-        <h:commandButton action="#{counterBean.increment()}" value="ok" />
-    </h:form>
-    <h:form>
-        <h:commandButton value="Fire!" action="#{messenger.hello}"/>
-    </h:form>
-    <h:form>
-        <h:outputText id="txt_count" value="#{counterView.number}" />
-        <p:poll interval="1" listener="#{counterView.increment}" update="txt_count" />
-    </h:form>
-    <hr/>
+    <h:form id="form">
+    <div class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
+        <div>
+            <a href="https://www.javaguides.net" class="navbar-brand"> Medical App </a>
+        </div>
+</div>
+    <div class="container">
+        <div class="row">
+            <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
+
+            <div class="col-xl-12 title">
+                <h2>Events</h2>
+            </div>
+        </div>
+        <p:poll update="tab" interval="2" />
+        <p:dataTable id="tab" var="event" value="#{counterView.eventDtoList}">
+            <f:facet name="header" class="thead-dark">
+            </f:facet>
+            <p:column headerText="Assignment">
+                <h:outputText value="#{event.id}"/>
+            </p:column>
+            <p:column headerText="Date">
+                <h:outputText value="#{event.date}" />
+            </p:column>
+            <p:column headerText="Time">
+                <h:outputText value="#{event.time}" />
+            </p:column>
+            <p:column headerText="Patient">
+                <h:outputText value="#{event.patientName}" />
+            </p:column>
+            <p:column headerText="Status">
+                <h:outputText value="#{event.status}" />
+            </p:column>
+        </p:dataTable>
+</div>
+</h:form>
 </h:body>
 </html>

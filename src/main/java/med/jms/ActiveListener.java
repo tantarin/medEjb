@@ -7,6 +7,7 @@ import lombok.SneakyThrows;
 import med.dto.EventDto;
 import med.dto.EventDtoList;
 import med.poll.CounterView;
+import med.websockets.FakeEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.ejb.ActivationConfigProperty;
@@ -26,7 +27,6 @@ import javax.jms.*;
 @MessageDriven(activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "superqueue") })
-@ManagedBean
 public class ActiveListener implements MessageListener {
 
     private static final Logger LOGGER =
@@ -36,10 +36,10 @@ public class ActiveListener implements MessageListener {
     @Override
     public void onMessage(Message message) {
         TextMessage textMessage = (TextMessage) message;
-        String payload = textMessage.getText();
-        LOGGER.info("inbound json='{}'", payload);
+        String list = textMessage.getText();
+        LOGGER.info("inbound json='{}'", list);
         Type listType = new TypeToken<ArrayList<EventDto>>(){}.getType();
-        List<EventDto> eventDtoList = new Gson().fromJson(payload, listType);
-        CounterView.eventDtoList = eventDtoList;
+         List<EventDto> eventDtoList = new Gson().fromJson(list, listType);
+         FakeEndpoint.sendList(eventDtoList);
     }
 }

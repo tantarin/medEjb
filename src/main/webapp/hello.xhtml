@@ -5,47 +5,54 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
+>
 <h:head>
     <title>JSF 2.3: Websocket Sample</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 </h:head>
 <h:body>
-    <h:form id="form">
-    <div class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
-        <div>
-            <a href="https://www.javaguides.net" class="navbar-brand"> Medical App </a>
-        </div>
-</div>
-    <div class="container">
-        <div class="row">
-            <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
+    <h1>JSF 2.3: Websocket and Ajax </h1>
+    <h:panelGroup id="messagePanel" layout="block">
+        <ul>
+            <ui:repeat value="#{ajaxBean.messages}" var="m">
+                <li>#{m}</li>
+            </ui:repeat>
+        </ul>
+    </h:panelGroup>
 
-            <div class="col-xl-12 title">
-                <h2>Events</h2>
-            </div>
-        </div>
-        <p:poll update="tab" interval="2" />
-        <p:dataTable id="tab" var="event" value="#{counterView.eventDtoList}">
-            <f:facet name="header" class="thead-dark">
-            </f:facet>
-            <p:column headerText="Assignment">
-                <h:outputText value="#{event.id}"/>
-            </p:column>
-            <p:column headerText="Date">
-                <h:outputText value="#{event.date}" />
-            </p:column>
-            <p:column headerText="Time">
-                <h:outputText value="#{event.time}" />
-            </p:column>
-            <p:column headerText="Patient">
-                <h:outputText value="#{event.patientName}" />
-            </p:column>
-            <p:column headerText="Status">
-                <h:outputText value="#{event.status}" />
-            </p:column>
-        </p:dataTable>
-</div>
-</h:form>
+    <h:form id="form">
+        <h:commandButton
+                id="pushToAjaxChannel"
+                action="#{ajaxBean.pushToAjaxChannel()}"
+                value="pushToAjaxChannel">
+            <f:ajax/>
+        </h:commandButton>
+        <h:commandButton
+                id="pushToAjaxListenerChannel"
+                action="#{ajaxBean.pushToAjaxListenerChannel()}"
+                value="pushToAjaxListenerChannel">
+            <f:ajax/>
+        </h:commandButton>
+        <h:commandButton
+                id="pushToCommandScriptChannel"
+                action="#{ajaxBean.pushToCommandScriptChannel()}"
+                value="pushToCommandScriptChannel">
+            <f:ajax/>
+        </h:commandButton>
+    </h:form>
+    <h:form>
+        <f:websocket channel="ajaxChannel" scope="view">
+            <f:ajax event="ajaxEvent" render=":messagePanel" />
+        </f:websocket>
+    </h:form>
+    <h:form>
+        <f:websocket channel="ajaxListenerChannel" scope="view">
+            <f:ajax event="ajaxListenerEvent" listener="#{ajaxBean.ajaxPushed}" render=":messagePanel" />
+        </f:websocket>
+    </h:form>
+
+    <f:websocket channel="commandScriptChannel" scope="view" onmessage="onCommandScript"/>
+    <h:form>
+        <h:commandScript name="onCommandScript" action="#{ajaxBean.commandScriptExecuted()}" render=":messagePanel"/>
+    </h:form>
 </h:body>
 </html>

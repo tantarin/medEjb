@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <title>JSF 2.3: Websocket Sample</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+</h:head>
+<h:body>
+        <div class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
+            <div>
+                <a href="https://www.javaguides.net" class="navbar-brand"> Medical App </a>
+            </div>
+        </div>
+                <div class="col-xl-12 title">
+                    <h2>Events</h2>
+                </div>
+                <h:form id="form">
+                <div>
+                    <h:commandButton
+                            id="sendMessage"
+                            type="submit"
+                            value="Send Message">
+                    </h:commandButton>
+                </div>
+</h:form>
+</h:body>
+<script>
+        var ws = new WebSocket("ws://localhost:8081/medEjb/push");
+        ws.onmessage = function(object) {
+           // alert(message.data);
+            alert("hi");
+            alert("type "+object.type);
+            alert("object "+object.data);
+        };
+
+</script>
+</html>

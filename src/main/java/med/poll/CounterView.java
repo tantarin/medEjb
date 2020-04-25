@@ -12,7 +12,6 @@ import java.util.List;
 
 @Named
 @Stateless
-@ViewScoped
 public class CounterView implements Serializable {
 
     private int number = 1;

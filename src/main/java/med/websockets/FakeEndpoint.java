@@ -21,14 +21,14 @@ public class FakeEndpoint{
         System.out.println("class loaded");
     }
 
-  // @OnMessage
-   public static void sendList(List<EventDto> list) {
-   //    public static void sendList(String listJson) {
+  @OnMessage
+ //  public static void sendList(List<EventDto> list) {
+   public static void sendList(String listJson) {
         synchronized (SESSIONS) {
             for (Session session : SESSIONS) {
                 if (session.isOpen()) {
-                    CounterView.eventDtoList = list;
-                 //   session.getAsyncRemote().sendText(listJson);
+                //    CounterView.eventDtoList = list;
+                    session.getAsyncRemote().sendText(listJson);
                 }
             }
         }

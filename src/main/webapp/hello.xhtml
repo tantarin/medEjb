@@ -14,28 +14,16 @@
     <h:panelGroup id="messagePanel" layout="block">
         <ul>
             <ui:repeat value="#{ajaxBean.messages}" var="m">
-                <li>#{m}</li>
+                <li>#{m.id}</li>
             </ui:repeat>
         </ul>
     </h:panelGroup>
 
     <h:form id="form">
         <h:commandButton
-                id="pushToAjaxChannel"
-                action="#{ajaxBean.pushToAjaxChannel()}"
-                value="pushToAjaxChannel">
-            <f:ajax/>
-        </h:commandButton>
-        <h:commandButton
                 id="pushToAjaxListenerChannel"
                 action="#{ajaxBean.pushToAjaxListenerChannel()}"
                 value="pushToAjaxListenerChannel">
-            <f:ajax/>
-        </h:commandButton>
-        <h:commandButton
-                id="pushToCommandScriptChannel"
-                action="#{ajaxBean.pushToCommandScriptChannel()}"
-                value="pushToCommandScriptChannel">
             <f:ajax/>
         </h:commandButton>
     </h:form>
@@ -48,11 +36,6 @@
         <f:websocket channel="ajaxListenerChannel" scope="view">
             <f:ajax event="ajaxListenerEvent" listener="#{ajaxBean.ajaxPushed}" render=":messagePanel" />
         </f:websocket>
-    </h:form>
-
-    <f:websocket channel="commandScriptChannel" scope="view" onmessage="onCommandScript"/>
-    <h:form>
-        <h:commandScript name="onCommandScript" action="#{ajaxBean.commandScriptExecuted()}" render=":messagePanel"/>
     </h:form>
 </h:body>
 </html>

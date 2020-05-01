@@ -1,9 +1,18 @@
 package med.modernms;
 
 
+import med.dto.EventDto;
+import med.model.ListEvent;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.checkerframework.checker.units.qual.A;
 
+import javax.annotation.ManagedBean;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.push.Push;
@@ -14,10 +23,12 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-@ViewScoped
+
 @Named("ajaxBean")
+@ApplicationScoped
 public class AjaxBean implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(AjaxBean.class.getName());
@@ -30,40 +41,31 @@ public class AjaxBean implements Serializable {
     @Push
     PushContext ajaxListenerChannel;
 
-    @Inject
-    @Push
-    PushContext commandScriptChannel;
+    private List<EventDto> messages = new ArrayList<>();
 
-    private List<String> messages = new ArrayList<>();
 
     public void ajaxPushed(AjaxBehaviorEvent e) throws AbortProcessingException {
         LOG.log(Level.INFO, "ajax pushed: " + e.toString());
-        messages.add("ajaxListenerEvent is sent at: " + LocalDateTime.now());
     }
 
-    public void commandScriptExecuted() {
-        LOG.log(Level.INFO, "commandScriptExecuted pushed.");
-        messages.add("commandScriptExecuted message is sent at: " + LocalDateTime.now());
-    }
-
-    public void pushToAjaxChannel() {
-        messages.add("ajaxEvent is sent at: " + LocalDateTime.now());
+    public void pushToAjaxChannel(@Observes ListEvent listEvent) {
+        LOG.log(Level.INFO, "data updated");
+        this.messages = listEvent.getEventDtoList();
+        System.out.println("messages "+messages.toString());
+        messages.add(new EventDto(2L));
         ajaxChannel.send("ajaxEvent");
     }
 
     public void pushToAjaxListenerChannel(){
+        messages.add(new EventDto(12L));
         ajaxListenerChannel.send("ajaxListenerEvent");
     }
 
-    public void pushToCommandScriptChannel() {
-        commandScriptChannel.send("onCommandScript");
-    }
-
-    public List<String> getMessages() {
+    public List<EventDto> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<String> messages) {
+    public void setMessages(List<EventDto> messages) {
         this.messages = messages;
     }
 

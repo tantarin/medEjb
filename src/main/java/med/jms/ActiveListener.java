@@ -4,6 +4,8 @@ package med.jms;
 import com.google.gson.Gson;
 import lombok.SneakyThrows;
 
+import med.beans.EventService;
+import med.beans.PushBean;
 import med.dto.EventDto;
 import med.model.ListEvent;
 import med.websockets.FakeEndpoint;
@@ -17,10 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
-
 import javax.enterprise.event.Event;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
 import javax.jms.*;
 
@@ -36,18 +35,22 @@ public class ActiveListener implements MessageListener {
     @Inject
     private Event<ListEvent> lightEvent;
 
+    @Inject
+    EventService eventService;
+
+    @Inject
+    PushBean pushBean;
+
     @SneakyThrows
     @Override
     public void onMessage(Message message) {
-        ListEvent listEvent = new ListEvent();
         TextMessage textMessage = (TextMessage) message;
         String list = textMessage.getText();
         LOGGER.info("inbound json='{}'", list);
-        FakeEndpoint.sendList(list);
+   //     FakeEndpoint.sendList(list);
         Type listType = new TypeToken<ArrayList<EventDto>>(){}.getType();
         List<EventDto> eventDtoList = new Gson().fromJson(list, listType);
-     //   ListEvent listEvent1 = new ListEvent();
-     //   listEvent1.setEventDtoList(eventDtoList);
-      //  lightEvent.fire(listEvent1);
+        eventService.setEvents(eventDtoList);
+        pushBean.handleEvent(list);
     }
 }

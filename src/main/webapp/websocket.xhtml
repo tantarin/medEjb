@@ -11,21 +11,6 @@
     <link rel="stylesheet" href="resources/css/table.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <script src="resources/js/table.js"></script>
-    <script>
-        var ws = new WebSocket("ws://localhost:8081/medEjb/push");
-        ws.onmessage = function f(json_string) {
-             var arr_from_json = JSON.parse(json_string.data+"");
-
-            document.querySelector('#example').innerHTML =
-                ToTable([
-                    { firstname: 'Oliver', lastname: 'Twist', age: 14 },
-                    { firstname: 'Charles', lastname: 'Darwin', age: 78 },
-                    { firstname: 'Steven', lastname: 'Hawken', age: 50 }
-                ]);
-
-        };
-
-    </script>
 </h:head>
 <h:body>
     <h:form id="form">

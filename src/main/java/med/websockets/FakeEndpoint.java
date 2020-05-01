@@ -1,14 +1,9 @@
 package med.websockets;
 
-import com.google.gson.JsonObject;
-import med.dto.EventDto;
-import med.poll.CounterView;
-
 import javax.faces.bean.ManagedBean;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,12 +17,10 @@ public class FakeEndpoint{
     }
 
   @OnMessage
- //  public static void sendList(List<EventDto> list) {
    public static void sendList(String listJson) {
         synchronized (SESSIONS) {
             for (Session session : SESSIONS) {
                 if (session.isOpen()) {
-                //    CounterView.eventDtoList = list;
                     session.getAsyncRemote().sendText(listJson);
                 }
             }

@@ -20,7 +20,7 @@ public class PushBean implements Serializable {
     private static final org.apache.log4j.Logger LOGGER = Logger.getLogger(PushBean.class);
 
     @Inject
-    @Push(channel = "push")
+    @Push
     private PushContext push;
 
     public void handleEvent(@Observes String message){

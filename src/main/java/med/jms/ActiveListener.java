@@ -16,10 +16,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.reflect.TypeToken;
-import javax.enterprise.event.Event;
-import javax.faces.push.Push;
-import javax.faces.push.PushContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.jms.*;
@@ -44,14 +40,12 @@ public class ActiveListener implements MessageListener {
     @SneakyThrows
     @Override
     public void onMessage(Message message) {
-        text = text+"1";
         TextMessage textMessage = (TextMessage) message;
         String list = textMessage.getText();
         LOGGER.info("inbound json='{}'", list);
         Type listType = new TypeToken<ArrayList<EventDto>>(){}.getType();
-        List<EventDto> eventDtoList = new Gson().fromJson(list, listType);
-        eventService.setEvents(eventDtoList);
-        Thread.sleep(1000);
+        List<EventDto> eventList = new Gson().fromJson(list, listType);
+        eventService.setEvents(eventList);
         pushBean.handleEvent(text);
     }
 }

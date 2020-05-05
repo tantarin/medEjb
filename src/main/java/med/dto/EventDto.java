@@ -2,11 +2,13 @@ package med.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
+@ToString
 public class EventDto implements Serializable {
     private static final long serialVersionUID = 1L;
     public Long id;
@@ -21,16 +23,4 @@ public class EventDto implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "EventDto{" +
-                "id=" + id +
-                ", date='" + date + '\'' +
-                ", time='" + time + '\'' +
-                ", assignmentName='" + assignmentName + '\'' +
-                ", status='" + status + '\'' +
-                ", patientName='" + patientName + '\'' +
-                ", comments='" + comments + '\'' +
-                '}';
-    }
 }

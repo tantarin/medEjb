@@ -1,0 +1,48 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en"-->
+<!--      xmlns="http://www.w3.org/1999/xhtml"-->
+<!--      xmlns:jsf="http://xmlns.jcp.org/jsf"-->
+<!--      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"-->
+<!--      xmlns:f="http://xmlns.jcp.org/jsf/core"-->
+<!--      xmlns:h="http://xmlns.jcp.org/jsf/html"-->
+<!--&gt;-->
+<!--<h:head>-->
+<!--    <title>JSF 2.3: Websocket Sample</title>-->
+<!--</h:head>-->
+<!--<h:body>-->
+<!--    <h1>JSF 2.3: Websocket and Ajax </h1>-->
+<!--    <h:panelGroup id="messagePanel" layout="block">-->
+<!--        <ul>-->
+<!--            <ui:repeat value="#{activeListener.events}" var="m">-->
+<!--                <li>#{m.id}</li>-->
+<!--            </ui:repeat>-->
+<!--        </ul>-->
+<!--    </h:panelGroup>-->
+
+<!--    <h:form id="form">-->
+<!--        <h:commandButton-->
+<!--                id="pushToAjaxChannel"-->
+<!--                action="#{ajaxBean.pushToAjaxChannel()}"-->
+<!--                value="pushToAjaxChannel">-->
+<!--            <f:ajax/>-->
+<!--        </h:commandButton>-->
+<!--        <h:commandButton-->
+<!--                id="pushToAjaxListenerChannel"-->
+<!--                action="#{ajaxBean.pushToAjaxListenerChannel()}"-->
+<!--                value="pushToAjaxListenerChannel">-->
+<!--            <f:ajax/>-->
+<!--        </h:commandButton>-->
+<!--    </h:form>-->
+<!--    <h:form>-->
+<!--        <f:websocket channel="pushh" scope="view">-->
+<!--            <f:ajax event="ajaxEvent" render=":messagePanel" />-->
+<!--        </f:websocket>-->
+<!--    </h:form>-->
+<!--    <h:form>-->
+<!--        <f:websocket channel="ajaxListenerChannel" scope="view">-->
+<!--            <f:ajax event="ajaxListenerEvent" listener="#{ajaxBean.ajaxPushed}" render=":messagePanel" />-->
+<!--        </f:websocket>-->
+<!--    </h:form>-->
+
+<!--</h:body>-->
+<!--</html>-->

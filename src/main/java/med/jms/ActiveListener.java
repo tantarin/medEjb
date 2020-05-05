@@ -3,24 +3,25 @@ package med.jms;
 
 import com.google.gson.Gson;
 import lombok.SneakyThrows;
-
 import med.beans.EventService;
 import med.beans.PushBean;
 import med.dto.EventDto;
-import med.model.ListEvent;
-import med.websockets.FakeEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.ejb.ActivationConfigProperty;
-import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
+import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.google.gson.reflect.TypeToken;
 import javax.enterprise.event.Event;
+import javax.faces.push.Push;
+import javax.faces.push.PushContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.jms.*;
 
 
@@ -33,10 +34,9 @@ public class ActiveListener implements MessageListener {
             LoggerFactory.getLogger(ActiveListener.class);
 
     @Inject
-    private Event<ListEvent> lightEvent;
-
-    @Inject
     EventService eventService;
+
+    public String text = "1";
 
     @Inject
     PushBean pushBean;
@@ -44,13 +44,14 @@ public class ActiveListener implements MessageListener {
     @SneakyThrows
     @Override
     public void onMessage(Message message) {
+        text = text+"1";
         TextMessage textMessage = (TextMessage) message;
         String list = textMessage.getText();
         LOGGER.info("inbound json='{}'", list);
-   //     FakeEndpoint.sendList(list);
         Type listType = new TypeToken<ArrayList<EventDto>>(){}.getType();
         List<EventDto> eventDtoList = new Gson().fromJson(list, listType);
         eventService.setEvents(eventDtoList);
-        pushBean.handleEvent(list);
+        Thread.sleep(1000);
+        pushBean.handleEvent(text);
     }
 }

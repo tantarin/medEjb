@@ -1,6 +1,8 @@
 package med.model;
 
+
 import med.dto.EventDto;
+
 import java.util.List;
 
 public class ListEvent {

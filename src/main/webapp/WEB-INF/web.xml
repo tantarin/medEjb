@@ -60,14 +60,7 @@
         <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
         <param-value>true</param-value>
     </context-param>
-    <listener>
-        <listener-class>org.omnifaces.ApplicationListener</listener-class>
-    </listener>
 
-    <context-param>
-        <param-name>org.omnifaces.SOCKET_ENDPOINT_ENABLED</param-name>
-        <param-value>true</param-value>
-    </context-param>
 
     <context-param>
         <param-name>javax.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
@@ -85,4 +78,8 @@
         <param-name>javax.faces.validator.ENABLE_VALIDATE_WHOLE_BEAN</param-name>
         <param-value>true</param-value>
     </context-param>
+    <mime-mapping>
+        <extension>xhtml</extension>
+        <mime-type>application/xml</mime-type>
+    </mime-mapping>
 </web-app>

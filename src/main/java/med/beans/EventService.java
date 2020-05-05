@@ -8,13 +8,14 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
 @Singleton
 public class EventService {
 
-    private static final Logger LOGGER = Logger.getLogger(EventController.class);
+    private static final Logger LOGGER = Logger.getLogger(EventService.class);
 
     private List<EventDto> events = Arrays.asList(new EventDto(2L), new EventDto(3L));
 
@@ -24,6 +25,7 @@ public class EventService {
     }
 
     public List<EventDto> getEvents(){
+        LOGGER.info("get events from service");
         return events;
     }
 

@@ -13,18 +13,28 @@
 <h:body>
     <b:container>
 
-        <h:form>
-            <h:commandButton value="Clock" action="#{pushBean.action()}">
-                <f:ajax />
-            </h:commandButton>
-        </h:form>
-
         <h:form id="form">
             <b:dataTable id="table" value="#{eventController.events}"
                          var="event" searching="false" paginated="false" lang="en">
                 <b:dataTableColumn>
-                    <f:facet name="header">Event name</f:facet>
-                    #{event.id}
+                    <f:facet name="header">Assignment</f:facet>
+                    #{event.assignmentName}
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">Date</f:facet>
+                    #{event.date}
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">Time</f:facet>
+                    #{event.time}
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">Patient</f:facet>
+                    #{event.patientName}
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">Status</f:facet>
+                    #{event.status}
                 </b:dataTableColumn>
             </b:dataTable>
         </h:form>
@@ -33,6 +43,6 @@
         <f:websocket channel="push">
             <f:ajax event="updateTable" render=":form:table"/>
         </f:websocket>
-  </b:container>
+    </b:container>
 </h:body>
 </html>

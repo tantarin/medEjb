@@ -1,0 +1,58 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en"-->
+<!--      xmlns="http://www.w3.org/1999/xhtml"-->
+<!--      xmlns:jsf="http://xmlns.jcp.org/jsf"-->
+<!--      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"-->
+<!--      xmlns:f="http://xmlns.jcp.org/jsf/core"-->
+<!--      xmlns:b="http://bootsfaces.net/ui"-->
+<!--      xmlns:h="http://xmlns.jcp.org/jsf/html"-->
+<!--&gt;-->
+<!--<head>-->
+<!--    <title>Assigment</title>-->
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>-->
+<!--    <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet"/>-->
+
+<!--</head>-->
+<!--<h:body>-->
+<!--    <header>-->
+<!--        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">-->
+<!--            <div>-->
+<!--                <a href="https://www.javaguides.net" class="navbar-brand"> Medical App </a>-->
+<!--            </div>-->
+<!--        </nav>-->
+<!--    </header>-->
+<!--    <b:container>-->
+<!--        <h2 align="center">Events table</h2>-->
+
+<!--        <h:form id="form">-->
+<!--            <b:dataTable class ="table table-striped table-bordered" id="table" value="#{activeListener.events}"-->
+<!--                         var="event" searching="false" paginated="false" lang="en">-->
+<!--                <b:dataTableColumn>-->
+<!--                    <f:facet name="header">Assignment</f:facet>-->
+<!--                    #{event.assignmentName}-->
+<!--                </b:dataTableColumn>-->
+<!--                <b:dataTableColumn>-->
+<!--                    <f:facet name="header">Date</f:facet>-->
+<!--                    #{event.date}-->
+<!--                </b:dataTableColumn>-->
+<!--                <b:dataTableColumn>-->
+<!--                    <f:facet name="header">Time</f:facet>-->
+<!--                    #{event.time}-->
+<!--                </b:dataTableColumn>-->
+<!--                <b:dataTableColumn>-->
+<!--                    <f:facet name="header">Patient</f:facet>-->
+<!--                    #{event.patientName}-->
+<!--                </b:dataTableColumn>-->
+<!--                <b:dataTableColumn>-->
+<!--                    <f:facet name="header">Status</f:facet>-->
+<!--                    #{event.status}-->
+<!--                </b:dataTableColumn>-->
+<!--            </b:dataTable>-->
+<!--        </h:form>-->
+
+<!--        <f:websocket channel="push" scope="view">-->
+<!--            <f:ajax event="updateTable" render=":form:table"/>-->
+<!--        </f:websocket>-->
+<!--  </b:container>-->
+<!--</h:body>-->
+<!--</html>-->

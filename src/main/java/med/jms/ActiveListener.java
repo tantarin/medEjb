@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.reflect.TypeToken;
+import test.EndPoint;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.jms.*;
@@ -32,6 +34,9 @@ public class ActiveListener implements MessageListener {
     @Inject
     EventService eventService;
 
+    @Inject
+    EndPoint endPoint;
+
     public String text = "1";
 
     @Inject
@@ -40,6 +45,7 @@ public class ActiveListener implements MessageListener {
     @SneakyThrows
     @Override
     public void onMessage(Message message) {
+        text = text+"1";
         TextMessage textMessage = (TextMessage) message;
         String list = textMessage.getText();
         LOGGER.info("inbound json='{}'", list);
@@ -47,5 +53,6 @@ public class ActiveListener implements MessageListener {
         List<EventDto> eventList = new Gson().fromJson(list, listType);
         eventService.setEvents(eventList);
         pushBean.handleEvent(text);
+        endPoint.onMessage(text);
     }
 }

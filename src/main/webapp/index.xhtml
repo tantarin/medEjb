@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
->
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
     <title>JSF 2.3: Websocket Sample</title>
 </h:head>
 <h:body>
-    <b:container>
+    <script>
+    var webSocket = new WebSocket("ws://localhost:8081/medEjb/test");
+    webSocket.onmessage = function f(message) {
 
+    }
+    </script>
+    <b:container>
         <h:form id="form">
             <b:dataTable id="table" value="#{eventController.events}"
                          var="event" searching="false" paginated="false" lang="en">
@@ -37,12 +40,14 @@
                     #{event.status}
                 </b:dataTableColumn>
             </b:dataTable>
+<!--            <p:poll interval="3" update="table" />-->
         </h:form>
 
-
+        <h:form>
         <f:websocket channel="push">
-            <f:ajax event="updateTable" render=":form:table"/>
+            <f:ajax event="updateTable" render=":form:table" onevent="async function demo(){await sleep(1000);}" />
         </f:websocket>
+        </h:form>
     </b:container>
 </h:body>
 </html>

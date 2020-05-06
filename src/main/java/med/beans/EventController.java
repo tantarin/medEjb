@@ -1,7 +1,7 @@
 package med.beans;
 
+import med.dto.EventDto;
 
-import med.dto.Event;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,7 +14,7 @@ public class EventController {
     @Inject
     private EventService eventService;
 
-    public List<Event> getEvents(){
+    public List<EventDto> getEvents(){
         return eventService.getEvents();
     }
 

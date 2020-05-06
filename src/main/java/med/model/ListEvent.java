@@ -1,19 +1,19 @@
 package med.model;
 
 
-import med.dto.Event;
+import med.dto.EventDto;
 
 import java.util.List;
 
 public class ListEvent {
 
-    private List<Event> eventDtoList;
+    private List<EventDto> eventDtoList;
 
-    public List<Event> getEventDtoList() {
+    public List<EventDto> getEventDtoList() {
         return eventDtoList;
     }
 
-    public void setEventDtoList(List<Event> eventDtoList) {
+    public void setEventDtoList(List<EventDto> eventDtoList) {
         System.out.println("set eventdto list");
         this.eventDtoList = eventDtoList;
     }

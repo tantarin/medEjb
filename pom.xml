@@ -89,6 +89,7 @@
             <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>javax.faces</groupId>
             <artifactId>javax.faces-api</artifactId>

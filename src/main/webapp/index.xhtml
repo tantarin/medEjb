@@ -4,50 +4,82 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>JSF 2.3: Websocket Sample</title>
 </h:head>
 <h:body>
     <script>
+        function stoperror() {
+            return true;
+        }
+        window.onerror = stoperror;
     var webSocket = new WebSocket("ws://localhost:8081/medEjb/test");
     webSocket.onmessage = function f(message) {
-
     }
     </script>
-    <b:container>
-        <h:form id="form">
-            <b:dataTable id="table" value="#{eventController.events}"
-                         var="event" searching="false" paginated="false" lang="en">
-                <b:dataTableColumn>
-                    <f:facet name="header">Assignment</f:facet>
-                    #{event.assignmentName}
-                </b:dataTableColumn>
-                <b:dataTableColumn>
-                    <f:facet name="header">Date</f:facet>
-                    #{event.date}
-                </b:dataTableColumn>
-                <b:dataTableColumn>
-                    <f:facet name="header">Time</f:facet>
-                    #{event.time}
-                </b:dataTableColumn>
-                <b:dataTableColumn>
-                    <f:facet name="header">Patient</f:facet>
-                    #{event.patientName}
-                </b:dataTableColumn>
-                <b:dataTableColumn>
-                    <f:facet name="header">Status</f:facet>
-                    #{event.status}
-                </b:dataTableColumn>
-            </b:dataTable>
-<!--            <p:poll interval="3" update="table" />-->
-        </h:form>
+    <h:form id="form" style="margin-right: auto; margin-left: auto">
+        <h:dataTable id="tableq" var="e" value="#{eventController.events}"
+                      styleClass="simpletablestyle">
+            <h:column>
+                <f:facet name="header">Assignment</f:facet>
+                #{e.assignmentName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Date</f:facet>
+                #{e.date}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Time</f:facet>
+                #{e.time}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Patient</f:facet>
+                #{e.patientName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Status</f:facet>
+                #{e.status}
+            </h:column>
+        </h:dataTable>
+    </h:form>
+<!--    <b:container>-->
+<!--        <h:form id="form">-->
+<!--            <b:dataTable id="tableq" value="#{eventController.events}"-->
+<!--                         var="event" searching="false" paginated="false" lang="en">-->
+<!--                <b:dataTableColumn>-->
+<!--                    <f:facet name="header">Assignment</f:facet>-->
+<!--                    #{event.assignmentName}-->
+<!--                </b:dataTableColumn>-->
+<!--                <b:dataTableColumn>-->
+<!--                    <f:facet name="header">Date</f:facet>-->
+<!--                    #{event.date}-->
+<!--                </b:dataTableColumn>-->
+<!--                <b:dataTableColumn>-->
+<!--                    <f:facet name="header">Time</f:facet>-->
+<!--                    #{event.time}-->
+<!--                </b:dataTableColumn>-->
+<!--                <b:dataTableColumn>-->
+<!--                    <f:facet name="header">Patient</f:facet>-->
+<!--                    #{event.patientName}-->
+<!--                </b:dataTableColumn>-->
+<!--                <b:dataTableColumn>-->
+<!--                    <f:facet name="header">Status</f:facet>-->
+<!--                    #{event.status}-->
+<!--                </b:dataTableColumn>-->
+<!--            </b:dataTable>-->
+<!--&lt;!&ndash;            <p:poll interval="3" update="table" />&ndash;&gt;-->
+<!--        </h:form>-->
 
         <h:form>
         <f:websocket channel="push">
-            <f:ajax event="updateTable" render=":form:table" onevent="async function demo(){await sleep(1000);}" />
+            <f:ajax event="updateTable" render=":form:tableq" onevent="
+            async function demo(){
+            try{await sleep(1000);}catch (e) {}
+            }"
+            />
         </f:websocket>
         </h:form>
-    </b:container>
+<!--    </b:container>-->
 </h:body>
 </html>

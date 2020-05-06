@@ -10,7 +10,12 @@
     <packaging>war</packaging>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.richfaces/richfaces &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.richfaces</groupId>-->
+<!--            <artifactId>richfaces</artifactId>-->
+<!--            <version>5.0.0.Alpha3</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>

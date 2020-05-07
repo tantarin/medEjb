@@ -17,10 +17,10 @@ public class PushBean implements Serializable {
 
     @Inject
     @Push
-    private PushContext push;
+    private PushContext pushh;
 
     public void handleEvent(@Observes String message){
-        push.send("updateTable");
+        pushh.send("update");
         LOGGER.info("trying to update event");
     }
 }

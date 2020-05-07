@@ -27,42 +27,39 @@
             font-weight: 100;
         }
 
-        .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
         table {
             width: 800px;
             border-collapse: collapse;
             overflow: hidden;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
+        thead {
+            background: #000000;
+            padding: 8px;
+        }
 
         th,
         td {
             padding: 15px;
-            background-color: rgba(255,255,255,0.2);
             color: #fff;
         }
 
         th {
             text-align: left;
+            background-color: rgba(255,255,255,0.2);
         }
 
     </style>
 </h:head>
 <h:body>
     <script>
-        function stoperror() {
-            return true;
+        var webSocket = new WebSocket("ws://localhost:8081/medEjb/test");
+        webSocket.onmessage = function(message) {
+            var x =document.getElementsByClassName("myButtonToClick");
+            x[0].click();
         }
     </script>
 
-    <div class="container">
-        <table>
     <h:form id="form">
         <h:dataTable id="tableq" var="e" value="#{eventController.events}"
                      class="table">
@@ -96,19 +93,11 @@
             </h:column>
         </h:dataTable>
     </h:form>
-        </table>
-    </div>
         <h:form>
-        <f:websocket channel="push">
-            <f:ajax event="updateTable" render=":form:tableq" onevent="
-            async function demo(){
-            try{await sleep(1000);}catch (e) {}
-            }"
-            />
-        </f:websocket>
+            <f:ajax event="click" render=":form:tableq">
+                <h:commandButton id="nn" styleClass="myButtonToClick" style="background-color:transparent; border: none !important;
+outline: none; visibility: hidden" />
+            </f:ajax>
         </h:form>
 </h:body>
-<script>
-    document.getElementsByTagName("thead")[0].className = "thead-dark";
-</script>
 </html>

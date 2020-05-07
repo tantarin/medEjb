@@ -10,16 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
-import java.io.Serializable;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.reflect.TypeToken;
-import test.EndPoint;
+import med.test.EndPoint;
+
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.jms.*;
 
 
@@ -53,6 +51,6 @@ public class ActiveListener implements MessageListener {
         List<EventDto> eventList = new Gson().fromJson(list, listType);
         eventService.setEvents(eventList);
         pushBean.handleEvent(text);
-        endPoint.onMessage(text);
+        EndPoint.sendList(list);
     }
 }

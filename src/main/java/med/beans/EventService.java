@@ -9,6 +9,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class EventService {
 
     private static final Logger LOGGER = Logger.getLogger(EventService.class);
 
-    private List<EventDto> events = Arrays.asList(new EventDto(2L), new EventDto(3L));
+    private List<EventDto> events = new ArrayList<>();
 
     public void updateEvents(){
         ResteasyClient client = new ResteasyClientBuilder().build();

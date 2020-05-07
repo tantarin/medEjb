@@ -18,6 +18,7 @@ public class EventDto implements Serializable {
     String status;
     String patientName;
     String comments =" ";
+    String doze;
 
     public EventDto(Long id){
         this.id = id;
